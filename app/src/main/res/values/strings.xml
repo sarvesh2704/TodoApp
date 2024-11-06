@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TodoApplication</string>
+    <string name="no_todo_item_description">Press the + button to add a TODO item.</string>
+    <string name="add_todo">Add TODO</string>
+    <string name="failure_error_description">Failed to add TODO</string>
+    <string name="error">Error</string>
+    <string name="ok">OK</string>
+</resources>
