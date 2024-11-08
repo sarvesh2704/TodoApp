@@ -4,8 +4,8 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.todoapplication.model.TodoModel
-import com.example.todoapplication.repository.TodoRepository
+import com.example.domain.model.TodoModel
+import com.example.domain.usecase.GetTodoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class TodoListViewModel
 @Inject
 constructor(
-    private val todoRepository: TodoRepository,
+    private val getTodoUseCase: GetTodoUseCase,
     private val stateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -32,7 +32,7 @@ constructor(
      **/
     fun getAllTodoDetails() {
         viewModelScope.launch(Dispatchers.IO) {
-            todoRepository.getAllTodoDetails().collectLatest {
+            getTodoUseCase.getTodoDetails().collectLatest {
                 dataList.clear()
                 filteredDataList.clear()
                 dataList.addAll(it)

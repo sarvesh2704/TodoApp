@@ -3,7 +3,7 @@ package com.example.todoapplication.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.todoapplication.repository.TodoRepository
+import com.example.domain.usecase.InsertTodoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class AddTodoViewModel
 @Inject
 constructor(
-    private val todoRepository: TodoRepository,
+    private val insertTodoUseCase: InsertTodoUseCase,
     private val stateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -36,7 +36,7 @@ constructor(
                 _state.value = AddTodoState.FAILURE
             } else {
                 _state.value = AddTodoState.LOADING
-                todoRepository.insertTodoDetail(todoContent).collectLatest {
+                insertTodoUseCase.insertData(todoContent).collectLatest {
                     delay(3000L)
                     _state.value = AddTodoState.SUCCESS
                 }
